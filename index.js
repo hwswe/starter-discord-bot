@@ -42,6 +42,14 @@ app.post('/interactions', verifyKeyMiddleware(PUBLIC_KEY), async (req, res) => {
         },
       });
     }
+    if(interaction.data.name == 'cookie'){
+      return res.send({
+        type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+        data: {
+          content: `Here have a cookie, ${interaction.member.user.username}!`,
+        },
+      });
+    }
 
     if(interaction.data.name == 'dm'){
       // https://discord.com/developers/docs/resources/user#create-dm
@@ -82,6 +90,11 @@ app.get('/register_commands', async (req,res) =>{
     {
       "name": "dm",
       "description": "sends user a DM",
+      "options": []
+    },
+    {
+      "name": "cookie",
+      "description": "gives you a cookie!",
       "options": []
     }
   ]
